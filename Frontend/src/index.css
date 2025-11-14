@@ -1,0 +1,13 @@
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Set global font */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8fafc; /* light background */
+  color: #111827; /* dark text */
+}
