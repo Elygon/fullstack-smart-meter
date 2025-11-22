@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
 // Routes (pass io if needed for emitting)
 app.use('/auth', require('./routes/auth'))
 app.use('/meter', require('./routes/meter'))
-app.use('/reading', require('./routes/reading')(io)) // <- adjust reading route to receive io
+app.use('/readings', require('./routes/readings')(io)) // <- adjust reading route to receive io
 app.use('/notification', require('./routes/notification'))
 
 // Start server

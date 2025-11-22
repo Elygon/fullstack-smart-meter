@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { LayoutDashboard, Power, FileText, Bell, Power, PlusSquare } from "lucide-react"
+import { LayoutDashboard, FileText, Bell, PlusSquare } from "lucide-react"
 import MeterList from "../components/meterList"
 
 
@@ -16,6 +16,9 @@ const Dashboard = () => {
                     </Link>
                     <Link to="/addMeter" className="flex items-center gap-3 hover:bg-[#1e293b] px-4 py-2 rounded-xl">
                         <PlusSquare size={18} /> Add Meter
+                    </Link>
+                    <Link to="/meterList" className="flex items-center gap-3 hover:bg-[#1e293b] px-4 py-2 rounded-xl">
+                        <FileText size={18} /> Meter Lists
                     </Link>
                     <Link to="/readings" className="flex items-center gap-3 hover:bg-[#1e293b] px-4 py-2 rounded-xl">
                         <FileText size={18} /> Live Readings

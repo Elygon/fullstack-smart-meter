@@ -2,14 +2,19 @@ const express = require('express')
 const router = express.Router()
 
 const SmartMeter = require('../models/smartMeter')
-const Reading = require('../models/reading')       
+const Reading = require('../models/readings')       
 
 
 // Get all meters
 router.post('/all', async (req, res) => {
     try {
         const meters = await SmartMeter.find()
-        res.status(200).send({ status: 'ok', msg: 'Meters fetched', meters })
+
+        if (meters.length === 0) {
+            return res.status(200).send({status: "ok", msg: "No meters found."})
+        }
+
+        res.status(200).send({ status: 'ok', msg: 'Meters fetched', count: meters.length, meters })
     } catch (err) {
         res.status(500).send({ status: 'error', msg: 'Error occurred', error: err.message })
    }

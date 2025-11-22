@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const MeterDetails = ({ meterId }) => {
-    const navigate = useNavigate();
-    const [meter, setMeter] = useState(null);
-    const [readings, setReadings] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const navigate = useNavigate()
+    const [meter, setMeter] = useState(null)
+    const [readings, setReadings] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState("")
+    const [successMsg, setSuccessMsg] = useState("")
 
     useEffect(() => {
         const fetchMeterDetails = async () => {
@@ -28,10 +29,25 @@ const MeterDetails = ({ meterId }) => {
             } finally {
                 setLoading(false);
             }
-        }
-        
+        }     
         fetchMeterDetails()
     }, [meterId])
+
+
+    const handleDelete = async () => {
+        if (!window.confirm("Delete this meter?")) return
+
+        try {
+            await axios.post("http://localhost:4885/meter/delete", { meterId })
+            setSuccessMsg("Meter deleted successfully!")
+            setTimeout(() => {
+                navigate("/dashboard")
+            }, 2000)
+        } catch (err) {
+            console.error(err)
+            alert("Failed to delete meter.")
+        }
+    }
 
     if (loading) return <p className="text-gray-500 animate-pulse">Loading meter details...</p>
     if (error) return <p className="text-red-600">{error}</p>
@@ -39,13 +55,23 @@ const MeterDetails = ({ meterId }) => {
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 p-6">
-            <button
-                onClick={() => navigate("/dashboard")}
-                className="mb-4 px-4 py-2 bg-gray-400 text-white rounded-xl hover:bg-gray-500 transition"
-            >
-                Back to Dashboard
-            </button>
+            <div className="flex gap-4 mb-4">
+                <button
+                    onClick={() => navigate("/dashboard")}
+                    className="mb-4 px-4 py-2 bg-gray-400 text-white rounded-xl hover:bg-gray-500 transition"
+                >
+                    Back to Dashboard
+                </button>
+                <button
+                    onClick={handleDelete}
+                    className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600 transition"
+                >
+                    Delete Meter
+                </button>
+            </div>
 
+            {successMsg && <p className="text-green-600 mb-4">{successMsg} </p>}
+            
             <div className="bg-white shadow-lg rounded-2xl p-6 mb-6">
                 <h2 className="text-2xl font-bold mb-2">{meter.name}</h2>
                 <p className="text-gray-600 mb-1"><span className="font-semibold">Serial Number:</span> {meter.serialNumber}</p>

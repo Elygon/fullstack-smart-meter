@@ -1,5 +1,5 @@
 const express = require('express')
-const Reading = require('../models/reading')
+const Reading = require('../models/readings')
 const SmartMeter = require('../models/smartMeter')
 
 module.exports = (io) => {
@@ -33,7 +33,11 @@ module.exports = (io) => {
     router.post('/all', async (req, res) => {
         try {
             const readings = await Reading.find().populate('meter').sort({ timestamp: -1 })
-            res.status(200).send({ status: 'ok', msg: 'Readings fetched', readings })
+
+            if (readings.length === 0) {
+                return res.status(200).send({status: "ok", msg: "No readings for now"})
+            }
+            res.status(200).send({ status: 'ok', msg: 'Readings fetched', count: readings.length, readings })
         } catch (err) {
             res.status(500).send({ status: 'error', msg: 'Error occurred', error: err.message })
         }

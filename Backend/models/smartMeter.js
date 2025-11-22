@@ -7,7 +7,7 @@ const smartMeterSchema = new Schema({
     },
     meter_id: {type: String}, //Unique identifier for internal use
     name: String,
-    serialNumber: Number,
+    serialNumber: String,
     location: {type: String, required: true},
     description: String,
     status: {type: String, enum: ['active', 'inactive', 'faulty','disconnected', 'maintenance']
