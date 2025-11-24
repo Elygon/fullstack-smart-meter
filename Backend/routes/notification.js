@@ -50,12 +50,12 @@ router.post('/receive', async (req, res) => {
 router.post('/all', async (req, res) => { 
     try {
         const notifications = await Notification.find().sort({ createdAt: -1 })
-        
-        if (!notifications || notifications.length === 0) {
-            return res.status(400).send({status: "error", msg: "No notifications found"})
-        }
-
-        return res.status(200).send({status: 'ok', msg: 'success', count: notifications.length, notifications})
+        return res.status(200).send({
+            status: 'ok',
+            msg: 'success',
+            count: notifications.length,
+            notifications
+        })
     } catch (e) {
         console.error(e)
         return res.status(500).send({status: 'error', msg:'An error occurred', error: e.message})
