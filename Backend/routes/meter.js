@@ -58,7 +58,7 @@ router.post('/add', async (req, res) => {
         await meter.save()
         res.status(201).send({ status: 'ok', msg: 'Meter added', meter })
     } catch (err) {
-        res.status(400).send({ status: 'error', msg: 'Error occurred', error: err.message })
+        res.status(500).send({ status: 'error', msg: 'Error occurred', error: err.message })
     }
 })
 
@@ -73,7 +73,7 @@ router.post('/update', async (req, res) => {
 
         res.status(200).send({ status: 'ok', msg: 'Meter updated', meter: updatedMeter })
     } catch (err) {
-        res.status(400).send({ status: 'error', msg: 'Error occurred', error: err.message })
+        res.status(500).send({ status: 'error', msg: 'Error occurred', error: err.message })
     }
 })
 
