@@ -49,7 +49,7 @@ router.post('/receive', async (req, res) => {
 // Get all notifications
 router.post('/all', async (req, res) => { 
     try {
-        const notifications = (await Notification.find()).toSorted({ createdAt: -1})
+        const notifications = await Notification.find().sort({ createdAt: -1 })
         
         if (!notifications || notifications.length === 0) {
             return res.status(400).send({status: "error", msg: "No notifications found"})
@@ -57,9 +57,7 @@ router.post('/all', async (req, res) => {
 
         return res.status(200).send({status: 'ok', msg: 'success', count: notifications.length, notifications})
     } catch (e) {
-        if (e.name === "JsonWebTokenError") {
-            return res.status(400).send({status: 'error', msg:'Token verification failed', error: e.message})
-        }
+        console.error(e)
         return res.status(500).send({status: 'error', msg:'An error occurred', error: e.message})
     }  
 })
@@ -74,21 +72,17 @@ router.post('/single', async(req, res) => {
     }
 
     try {
-        //Find the notification by its ID and ensure it belongs to the user
-        const notification = await Notification.findOne(id)
+        const notification = await Notification.findById(id)
         
         if (!notification) {
-            return res.status(400).send({status: "error", msg: "Notification not found"})
+            return res.status(404).send({status: "error", msg: "Notification not found"})
         }
-        return res.status(200).send({status: 'ok', msg: 'success',notification})
+        return res.status(200).send({status: 'ok', msg: 'success', notification})
     } catch (e) {
-        if (e.name === "JsonWebTokenError") {
-            return res.status(400).send({status: 'error', msg:'Token verification failed', error: e.message})
-        }
+        console.error(e)
         return res.status(500).send({status: 'error', msg:'Failed to retrieve the notification', error: e.message})
     }  
 })
-
 
 
 // Mark as read

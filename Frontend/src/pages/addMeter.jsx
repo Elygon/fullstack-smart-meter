@@ -22,7 +22,7 @@ const AddMeter = () => {
         
         try {
             const res = await axios.post(
-                "http://localhost:4885/meter/add",
+                "https://fullstack-smart-meter.onrender.com/meter/add",
                 { name, serialNumber, location, status }
             )
             

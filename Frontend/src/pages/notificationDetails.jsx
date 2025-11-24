@@ -18,7 +18,7 @@ const NotificationDetails = () => {
 
     const fetchNotification = async () => {
       try {
-        const res = await axios.post("http://localhost:4885/notification/single")
+        const res = await axios.post("https://fullstack-smart-meter.onrender.com/notification/single")
         const note = res.data.notifications.find((n) => n._id === id);
         if (note) setNotification(note);
         else setError("Notification not found");
@@ -33,7 +33,7 @@ const NotificationDetails = () => {
 
   const markAsRead = async () => {
     try {
-      await axios.post("http://localhost:4885/notification/mark", { id });
+      await axios.post("https://fullstack-smart-meter.onrender.com/notification/mark", { id });
       setNotification((prev) => ({ ...prev, read: true }));
     } catch (err) {
       console.error(err);
@@ -42,7 +42,7 @@ const NotificationDetails = () => {
 
   const deleteNotification = async () => {
     try {
-      await axios.post("http://localhost:4885/notification/delete", { id });
+      await axios.post("https://fullstack-smart-meter.onrender.com/notification/delete", { id });
       navigate("/notifications");
     } catch (err) {
       console.error(err);

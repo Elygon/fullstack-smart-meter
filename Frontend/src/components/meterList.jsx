@@ -10,7 +10,7 @@ const MeterList = () => {
     useEffect(() => {
         const fetchMeters = async () => {
             try {
-                const res = await axios.post("http://localhost:4885/meter/all")
+                const res = await axios.post("https://fullstack-smart-meter.onrender.com/meter/all")
                 setMeters(res.data.meters || [])
                 setLoading(false)
             } catch (err) {

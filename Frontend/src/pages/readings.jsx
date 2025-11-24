@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { io } from "socket.io-client"
-import MeterDetails from "./components/meterDetails"       // make sure the path is correct
-import LiveReadingCard from "./components/liveReadingCard" // make sure the path is correct
+import MeterDetails from "../components/meterDetails"       // make sure the path is correct
+import LiveReadingCard from "../components/liveReadingCard" // make sure the path is correct
 
-const socket = io("http://localhost:4885") // Your backend URL
+const socket = io("https://fullstack-smart-meter.onrender.com") // Your backend URL
 
 const Readings = ({ meterId }) => {
   const [readings, setReadings] = useState([])
@@ -14,7 +14,7 @@ const Readings = ({ meterId }) => {
   useEffect(() => {
     const fetchInitialReadings = async () => {
       try {
-        const res = await fetch("http://localhost:4885/readings/view", {
+        const res = await fetch("https://fullstack-smart-meter.onrender.com/readings/view", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ meter: meterId })

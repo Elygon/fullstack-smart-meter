@@ -13,7 +13,7 @@ const MeterDetails = ({ meterId }) => {
     useEffect(() => {
         const fetchMeterDetails = async () => {
             try {
-                const res = await axios.post("http://localhost:4885/meter/single", {
+                const res = await axios.post("https://fullstack-smart-meter.onrender.com/meter/single", {
                     meterId,
                 })
 
@@ -38,7 +38,7 @@ const MeterDetails = ({ meterId }) => {
         if (!window.confirm("Delete this meter?")) return
 
         try {
-            await axios.post("http://localhost:4885/meter/delete", { meterId })
+            await axios.post("https://fullstack-smart-meter.onrender.com/meter/delete", { meterId })
             setSuccessMsg("Meter deleted successfully!")
             setTimeout(() => {
                 navigate("/dashboard")

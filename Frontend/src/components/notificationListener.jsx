@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { io } from 'socket.io-client'
 
-const socket = io('http://localhost:4885') // backend server
+const socket = io('https://fullstack-smart-meter.onrender.com') // backend server
 
 const NotificationListener = ({ onNewNotification }) => {
     useEffect(() => {

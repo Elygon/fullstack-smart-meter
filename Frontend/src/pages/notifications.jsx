@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import axios from "axios"
 import NotificationListener from "../components/notificationListener"
 
 const Notifications = () => {
@@ -12,7 +13,7 @@ const Notifications = () => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const res = await axios.post("http://localhost:4885/notification/all")
+                const res = await axios.post("https://fullstack-smart-meter.onrender.com/notification/all")
 
                 if (res.data.status === "ok") {
                     setNotifications(res.data.notifications)
